@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة أقسام الاختبارات</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --primary:#4834d4;
+  --accent:#f0932b;
+  --bg:#f0f3f7;
+  --card:#ffffff;
+  --border:#e6ebf2;
+  --text:#2d3436;
+  --muted:#6c757d;
+  --grad:linear-gradient(135deg,#686de0,#4834d4);
+}
+
+body{
+  margin:0;
+  font-family:"Cairo",sans-serif;
+  background:var(--bg);
+  display:flex;
+  justify-content:center;
+  padding:16px;
+}
+
+.wrap{
+  width:100%;
+  max-width:900px;
+}
+
+.header{
+  background:#fff;
+  border-radius:22px;
+  padding:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+  margin-bottom:14px;
+  text-align:center;
+}
+
+.badge{
+  background:var(--accent);
+  color:#fff;
+  padding:6px 16px;
+  border-radius:999px;
+  font-weight:900;
+  display:inline-block;
+  margin-bottom:8px;
+}
+
+h1{
+  margin:0;
+  color:var(--primary);
+  font-size:1.25rem;
+  font-weight:900;
+}
+
+.sub{
+  margin-top:6px;
+  color:var(--muted);
+  font-weight:800;
+}
+
+/* أدوات */
+.tools{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  margin-top:12px;
+  flex-wrap:wrap;
+}
+
+.sort{
+  height:44px;
+  padding:0 14px;
+  border-radius:14px;
+  border:2px solid var(--border);
+  background:#fff;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.search{
+  width:200px;
+  height:44px;
+  border-radius:14px;
+  border:2px solid var(--border);
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:0 10px;
+  background:#fff;
+}
+
+.search input{
+  border:none;
+  outline:none;
+  width:100%;
+  font-family:"Cairo";
+  font-size:.9rem;
+}
+
+/* البطاقات */
+.grid{
+  display:grid;
+  gap:14px;
+}
+
+.card{
+  background:#fff;
+  border-radius:22px;
+  padding:16px;
+  border:1px solid var(--border);
+  box-shadow:0 8px 25px rgba(0,0,0,.06);
+  display:flex;
+  gap:14px;
+  align-items:center;
+  text-decoration:none;
+  color:inherit;
+}
+
+.icon{
+  width:70px;
+  height:70px;
+  border-radius:20px;
+  background:var(--grad);
+  color:#fff;
+  font-weight:900;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  font-size:.8rem;
+  text-align:center;
+  flex-shrink:0;
+}
+
+.content{
+  flex:1;
+}
+
+.title{
+  font-weight:900;
+  color:var(--primary);
+  margin-bottom:4px;
+}
+
+.meta{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:6px;
+}
+
+.pill{
+  background:#f8f9fa;
+  border:1px solid #eee;
+  padding:4px 10px;
+  border-radius:999px;
+  font-size:.85rem;
+  font-weight:900;
+}
+
+.btn{
+  margin-top:8px;
+  background:var(--grad);
+  color:#fff;
+  border:none;
+  padding:8px 14px;
+  border-radius:12px;
+  font-weight:900;
+  cursor:pointer;
+  width:140px;
+}
+
+@media(max-width:600px){
+  .card{flex-direction:row;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+<div class="header">
+  <div class="badge">إعداد Dr. Zakaria Al-Zubaidi</div>
+  <h1>لوحة أقسام الاختبارات</h1>
+  <div class="sub">اضغط على أي قسم للانتقال إلى ملف الأسئلة داخل المجلد</div>
+
+  <div class="tools">
+    <button class="sort" onclick="sortAZ()">ترتيب A→Z</button>
+
+    <div class="search">
+      🔎
+      <input type="text" placeholder="بحث باسم القسم" oninput="searchCards(this.value)">
+    </div>
+  </div>
+</div>
+
+<div id="grid" class="grid"></div>
+
+</div>
+
+<script>
+
+/* =====================
+   الأقسام — عدّل هنا فقط
+   ===================== */
+
+let sections = [
+
+  {
+    title:"ADM , ANESTH , ANTIDOT , BIOch",
+    folder:"admin-to-bioch",
+    file:"admin-to-bioch.html",
+    questions:"58 سؤال",
+    time:"75 دقيقة"
+  },
+
+  {
+    title:"BIOch , BLOOD",
+    folder:"bioch-to-blood",
+    file:"bioch-to-blood.html",
+    questions:"66 سؤال",
+    time:"75 دقيقة"
+  },
+
+  {
+    title:"BONE , CANCER , CHEMICAL",
+    folder:"bone-to-chem",
+    file:"bone-to-chem.html",
+    questions:"54 سؤال",
+    time:"66 دقيقة"
+  }
+
+];
+
+
+/* =====================
+   رسم البطاقات
+   ===================== */
+
+function render(list){
+  const grid = document.getElementById("grid");
+
+  grid.innerHTML = list.map(s => `
+    <a class="card" href="${s.folder}/${s.file}">
+      
+      <div class="icon">
+        📁
+        ${s.folder}
+      </div>
+
+      <div class="content">
+        <div class="title">${s.title}</div>
+
+        <div class="meta">
+          <span class="pill">🧾 ${s.questions}</span>
+          <span class="pill">⏱ ${s.time}</span>
+        </div>
+
+        <button class="btn">دخول الاختبار</button>
+      </div>
+
+    </a>
+  `).join("");
+}
+
+render(sections);
+
+
+/* =====================
+   البحث
+   ===================== */
+
+function searchCards(text){
+  text = text.toLowerCase();
+
+  const filtered = sections.filter(s =>
+    s.title.toLowerCase().includes(text) ||
+    s.folder.toLowerCase().includes(text)
+  );
+
+  render(filtered);
+}
+
+
+/* =====================
+   الترتيب
+   ===================== */
+
+function sortAZ(){
+  sections.sort((a,b)=>a.title.localeCompare(b.title));
+  render(sections);
+}
+
+</script>
+
+</body>
+</html>
