@@ -609,42 +609,58 @@
   }
 
   function renderQuestion(){
-    const q = questions[current];
-    curEl.textContent = current + 1;
+  const q = questions[current];
+  curEl.textContent = current + 1;
 
-    const imgHtml = q.img ? `<img class="qimg" src="${q.img}" alt="question image">` : "";
-    const text = ensureQuestionMark(q.q);
+  const imgHtml = q.img ? `
+    <div style="display:flex;justify-content:center;margin:8px 0;">
+      <button onclick="showImg('img${current}', this)" 
+        style="background:#fff;border:2px solid #dfe6ef;border-radius:14px;padding:6px 10px;font-weight:900;cursor:pointer">
+        🖼️ عرض الصورة
+      </button>
+    </div>
+    <img id="img${current}" class="qimg" data-src="${q.img}" alt="question image" style="display:none">
+  ` : "";
 
-    questionArea.innerHTML = `
-      <div class="qtext">${text}</div>
-      ${imgHtml}
-      <div class="options" id="opts"></div>
+  const text = ensureQuestionMark(q.q);
+
+  questionArea.innerHTML = `
+    <div class="qtext">${text}</div>
+    ${imgHtml}
+    <div class="options" id="opts"></div>
+  `;
+
+  const opts = document.getElementById('opts');
+  const letters = ["A","B","C","D"];
+
+  q.options.forEach((t, idx) => {
+    const btn = document.createElement('div');
+    btn.className = "opt";
+    btn.innerHTML = `
+      <div class="badge">${letters[idx]}</div>
+      <div style="flex:1">${t}</div>
     `;
+    btn.onclick = () => choose(idx);
+    opts.appendChild(btn);
+  });
 
-    const opts = document.getElementById('opts');
-    const letters = ["A","B","C","D"];
-
-    q.options.forEach((t, idx) => {
-      const btn = document.createElement('div');
-      btn.className = "opt";
-      // ✅ A,B,C,D على اليسار
-      btn.innerHTML = `
-        <div class="badge">${letters[idx]}</div>
-        <div style="flex:1">${t}</div>
-      `;
-      btn.onclick = () => choose(idx);
-      opts.appendChild(btn);
-    });
-
-    if(answers[current]){
-      paintAnswered();
-      lockOptions(true);
-    }else{
-      lockOptions(false);
-    }
-
-    refreshNumbers(true);
+  if(answers[current]){
+    paintAnswered();
+    lockOptions(true);
+  }else{
+    lockOptions(false);
   }
+
+  refreshNumbers(true);
+}
+function showImg(id, btn){
+  const img = document.getElementById(id);
+  if(!img.src){
+    img.src = img.dataset.src;
+  }
+  img.style.display = "block";
+  btn.style.display = "none";
+}
 
   function lockOptions(lock){
     const opts = document.querySelectorAll('.opt');
@@ -796,4 +812,4 @@
   };
 </script>
 </body>
-  </html>
+          </html>
