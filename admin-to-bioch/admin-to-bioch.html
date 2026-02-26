@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>اختبار في ADM , ANESTH , ANTIDOT , BIOch </title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root{--primary-color:#4834d4;--accent-color:#f0932b;--bg-gradient:linear-gradient(135deg,#686de0,#4834d4);--correct-color:#2ecc71;--wrong-color:#eb4d4b;}
+    body{font-family:'Cairo',sans-serif;background:#f0f3f7;margin:0;display:flex;justify-content:center;align-items:center;min-height:100vh;direction:rtl;padding:10px;}
+    .card{background:#fff;padding:22px 16px;border-radius:20px;box-shadow:0 15px 40px rgba(0,0,0,0.1);width:100%;max-width:760px;text-align:center;border:4px solid #fff;box-sizing:border-box;}
+    .teacher-badge{background:var(--accent-color);color:#fff;padding:6px 20px;border-radius:50px;font-weight:900;margin-bottom:12px;display:inline-block;}
+    h1{color:var(--primary-color);font-weight:900;font-size:1.15rem;margin:8px 0 14px;}
+    .btn-primary{background:var(--bg-gradient);color:#fff;border:none;padding:12px 18px;border-radius:12px;font-size:1.05rem;font-weight:900;cursor:pointer;width:100%;max-width:260px;}
+    .btn-secondary{background:#636e72;color:#fff;border:none;padding:10px 14px;border-radius:12px;font-size:1rem;font-weight:900;cursor:pointer;}
+    .btn-nav{background:#ffffff;color:#2d3436;border:2px solid #e0e6ed;padding:10px 14px;border-radius:12px;font-size:1rem;font-weight:900;cursor:pointer;flex:1;min-width:140px;}
+    .btn-nav:disabled{opacity:.55;cursor:not-allowed;}
+    input[type="text"]{width:100%;box-sizing:border-box;padding:12px;border-radius:10px;border:2px solid #ddd;margin-bottom:12px;font-family:'Cairo';text-align:center;}
+    .hidden{display:none;}
+    .fade-in{animation:fadeIn .35s ease;}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    .quiz-header{display:flex;gap:10px;margin-bottom:10px;align-items:stretch;}
+    .stat-box{background:#f8f9fa;padding:10px;border-radius:12px;flex:1;border:1px solid #eee;}
+    .stat-box .value{display:block;font-size:1.2rem;font-weight:900;color:var(--primary-color);margin-top:2px;}
+    .top-actions{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+    .top-actions .btn-secondary{flex:1;min-width:160px;}
+    .nav-actions{display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+    .nav-strip{display:flex;gap:8px;overflow-x:auto;padding:10px 8px;border-radius:14px;background:#f8f9fa;border:1px solid #eee;margin-bottom:12px;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;}
+    .nav-strip::-webkit-scrollbar{height:8px;}
+    .nav-strip::-webkit-scrollbar-thumb{background:#dfe6e9;border-radius:10px;}
+    .q-chip{min-width:44px;height:38px;border-radius:12px;border:2px solid #e0e6ed;background:#fff;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;user-select:none;transition:.15s;color:#2d3436;flex:0 0 auto;}
+    .q-chip.current{border-color:var(--primary-color);box-shadow:0 4px 12px rgba(72,52,212,.15);}
+    .q-chip.correct{background:var(--correct-color);border-color:var(--correct-color);color:#fff;}
+    .q-chip.wrong{background:var(--wrong-color);border-color:var(--wrong-color);color:#fff;}
+    .q-chip.unanswered{background:#fff;}
+    .question-text{direction:ltr;text-align:left;unicode-bidi:isolate;font-weight:900;margin:8px 0 18px;font-size:1.06rem;line-height:1.65;}
+    .options-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px;}
+    @media(min-width:520px){.options-grid{grid-template-columns:1fr 1fr;}}
+    .option-btn{background:#fff;border:2px solid #e0e6ed;padding:14px 12px;border-radius:12px;font-size:1rem;font-weight:900;cursor:pointer;transition:.18s;color:#2d3436;font-family:'Cairo';outline:none;display:flex;align-items:center;justify-content:space-between;gap:12px;text-align:right;}
+    .option-text{direction:ltr;text-align:left;unicode-bidi:isolate;flex:1;}
+    .opt-badge{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;border:2px solid #e0e6ed;flex:0 0 auto;}
+    .option-btn.correct{background-color:var(--correct-color)!important;color:#fff!important;border-color:var(--correct-color)!important;}
+    .option-btn.wrong{background-color:var(--wrong-color)!important;color:#fff!important;border-color:var(--wrong-color)!important;}
+    .option-btn.correct .opt-badge,.option-btn.wrong .opt-badge{border-color:rgba(255,255,255,.6);}
+    #result-screen{direction:rtl !important;text-align:right !important;}
+    #answers-report{max-height:420px;overflow-y:auto;text-align:right !important;direction:rtl !important;unicode-bidi:isolate !important;}
+    .report-q{direction:ltr;text-align:left;unicode-bidi:isolate;display:block;font-weight:900;margin-bottom:6px;line-height:1.6;}
+    .report-meta{direction:rtl;text-align:right;unicode-bidi:isolate;display:block;font-weight:800;color:#2d3436;line-height:1.8;}
+    .report-item{padding:12px;border-radius:10px;margin-bottom:8px;border-right:6px solid #ddd;background:#fff;}
+    .correct-item{border-right-color:var(--correct-color);background:#f0fff4;}
+    .wrong-item{border-right-color:var(--wrong-color);background:#fff5f5;}
+  </style>
+</head>
+
+<body>
+  <div id="quiz-app" style="width: 100%; display:flex; justify-content:center;">
+    <div id="start-screen" class="card fade-in">
+      <div class="teacher-badge">إعداد Dr. Zakaria Al-Zubaidi</div>
+      <h1>اختبار في ADM , ANESTH , ANTIDOT , BIOch</h1>
+      <input type="text" id="student-name" placeholder="أدخل اسمك الكريم هنا..." />
+      <button id="start-btn" class="btn-primary">بدء الاختبار</button>
+    </div>
+
+    <div id="quiz-screen" class="card hidden fade-in">
+      <div class="quiz-header">
+        <div class="stat-box"><span>الوقت</span><span id="time" class="value">75:00</span></div>
+        <div class="stat-box"><span>السؤال</span><span class="value"><span id="current-q-num">1</span>/<span id="total-q-num">0</span></span></div>
+      </div>
+
+      <div class="top-actions">
+        <button id="finish-btn" class="btn-secondary">إنهاء الاختبار</button>
+      </div>
+
+      <div class="nav-actions">
+        <button id="prev-btn" class="btn-nav">السابق</button>
+        <button id="next-btn" class="btn-nav">التالي</button>
+      </div>
+
+      <div id="nav-strip" class="nav-strip" aria-label="Question navigation"></div>
+      <div id="question-container" class="fade-in"></div>
+
+      <div id="confirm-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.45);align-items:center; justify-content:center; padding:14px; z-index:9999;">
+        <div style="width:100%; max-width:520px; background:#fff; border-radius:18px;padding:18px 16px; box-shadow:0 18px 50px rgba(0,0,0,.25); text-align:center;">
+          <div style="font-weight:900; font-size:1.15rem; margin-bottom:8px;">تنبيه</div>
+          <div id="confirm-text" style="font-weight:800; color:#2d3436; line-height:1.7; margin-bottom:14px;">بقيت لديك أسئلة لم تجب عليها، هل تريد إنهاء الاختبار؟</div>
+          <div style="display:flex; gap:10px;">
+            <button id="confirm-no" class="btn-nav" style="flex:1;">لا</button>
+            <button id="confirm-yes" class="btn-secondary" style="flex:1;">نعم</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="result-screen" class="card hidden fade-in">
+      <h2 style="color: var(--primary-color); margin: 0 0 8px;">تقرير الأداء</h2>
+      <div id="score-display" style="font-size: 1.8rem; font-weight: 900; margin: 10px 0;"></div>
+      <div id="percent-display" style="font-size: 1.1rem; font-weight: 900; color:#2d3436; margin-bottom: 10px;"></div>
+      <p style="margin: 6px 0;">الطالب: <strong id="report-name"></strong></p>
+      <hr />
+      <div id="answers-report"></div>
+      <button onclick="location.reload()" class="btn-primary" style="background:#636e72; margin-top: 15px;">إعادة الاختبار</button>
+    </div>
+  </div>
+
+  <script>
+    // المجموعة الأولى (مع حذف نسخة واحدة فقط من المكرر)
+    const questions = [
+      { q: "1) Mortality of children was 8 in 2012 and 6.4 in 2017. What does this mean?", options: ["More hospitals opened","Improved health","Nothing; more information is needed","All of the above"], correct: 2 },
+      { q: "2) What database do insurance companies use?", options: ["C.L.U.E. database (Comprehensive Loss Underwriting Exchange)","MedWatch","PubMed","Lexicomp"], correct: 0 },
+      { q: "3) Sources of data in insurance companies?", options: ["CLAIMS","Health data","Information collection","All of the above"], correct: 0 },
+      { q: "4) Which error detection strategy results in limiting detection?", options: ["Bar-coding","Trigger tools","Voluntary reporting","Mandatory reporting"], correct: 3 },
+      { q: "5) What is the mid goal to long-term future goal called?", options: ["Mission","Vision","Plan","Policy"], correct: 1 },
+      { q: "6) A preventive and curative institution is?", options: ["Primary","Secondary","Tertiary","Specialty"], correct: 0 },
+      { q: "7) Mission and vision can be present in which strategy?", options: ["Planning","Organization","Strategic","None"], correct: 2 },
+      { q: "8) A long-term plan that uses all aspects in an organization is?", options: ["Strategy","Operation","Organization","Budget"], correct: 0 },
+      { q: "9) A pharmacist wrote an email to another pharmacist to ask to add a medication to the formulary. This is considered?", options: ["Interinstitutional","Intra-institutional","Written communication","Non-verbal communication"], correct: 2 },
+      { q: "10) The head of pharmacy decides to make a group to arrange formulary drugs in the hospital. This is?", options: ["Organizing","Planning","Leading","Controlling"], correct: 1 },
+      { q: "11) Who is responsible for accreditation of the health care system?", options: ["SFDA","WHO","MOH","CBAHI"], correct: 3 },
+      { q: "12) You received a prescription on plain paper. What should you do?", options: ["Tell the manager","Talk to the prescriber and do not dispense","Dispense and counsel","Ignore"], correct: 0 },
+      { q: "13) A pharmacist dispensed the wrong medication. The manager screamed in front of staff. What is the best response?", options: ["Punish him in a separate area","Ask for a meeting with staff","Cut from his salary","Find the cause of error and set solutions"], correct: 3 },
+      { q: "14) What is a function of the Pharmacy & Therapeutics committee in a hospital?", options: ["Poison management","Monitor ADR reporting","Monitor medication error reporting","Drug formulary management"], correct: 3 },
+      { q: "15) Which distribution system works better for medicines requiring higher control?", options: ["Bulk ward stock","Direct procurement","Automated dispensing","Individual medication order"], correct: 2 },
+      { q: "16) Which committee develops and maintains a list of approved medicines for hospital use?", options: ["Medical records","Medication audit","Quality assurance","Pharmacy and therapeutics"], correct: 3 },
+      { q: "17) What is the definition of management?", options: ["Art of maximizing profitability","Art of maximizing productivity","Art of maximizing possibilities","Art of maximizing predictability"], correct: 1 },
+      { q: "18) 65-year-old not refilling regularly due to complex administration. Which non-adherence factor is this?", options: ["Patient-related","Provider-related","Health care system factors","Medication and condition factor"], correct: 3 },
+      { q: "19) What is first considered to rationalize drug therapy decisions?", options: ["Care plan","Follow-up evaluations","Pharmacotherapy workup","Monitoring plan"], correct: 2 },
+      { q: "20) A broad range of health care services to optimize outcomes for individual patients is called?", options: ["Pharmaceutical care","Medication counseling","Medication reconciliation","Medication therapy management"], correct: 3 },
+      { q: "21) What is the recommended policy for dealing with free medical sample drugs?", options: ["Dispense directly to patient","Keep with original items","Keep in outpatient clinics/nursing units","Exclude from inpatient pharmacy/drug store/doctors' offices"], correct: 3 },
+      { q: "22) A clinical pharmacist in the neuroscience ward wants to submit a complaint. To whom should it be submitted?", options: ["Pharmacy Director","Medical Affairs Director","Neuroscience ward director","Clinical pharmacy department head"], correct: 3 },
+      { q: "23) Which is most important on a prescription?", options: ["Patient name/MRN/date","Physician name/number/signature","Patient name/age/sex/diagnosis","All of the above"], correct: 2 },
+      { q: "24) Which medication has metallic taste as a side effect?", options: ["Cefuroxime","Azithromycin","Ciprofloxacin","Metronidazole"], correct: 3 },
+      { q: "25) Which type of anemia is due to lack of intrinsic factor?", options: ["Megaloblastic anemia","Pernicious anemia","Hemolytic anemia","Aplastic anemia"], correct: 1 },
+      { q: "26) Which inhalational anesthetic has a higher risk of hepatic toxicity?", options: ["Propofol","Ketamine","Isoflurane","Nitrous oxide"], correct: 2 },
+      { q: "27) What is an advantage of IV anesthetic drugs?", options: ["Fast onset of anesthesia","Helps maintain anesthesia","Increases MAC","Less cardiovascular/respiratory suppression"], correct: 0 },
+      { q: "28) What is the mechanism of action of phentolamine?", options: ["Beta blocker","Beta agonist","Alpha agonist","Non-selective alpha blocker"], correct: 3 },
+      { q: "29) What is a consequence of stimulation of α1-adrenoceptors?", options: ["Flushing","Increased heart rate","Elevated blood pressure","Bronchodilation"], correct: 2 },
+      { q: "30) Which drug is used to treat an anaphylactic reaction?", options: ["Atropine","Adrenaline (epinephrine)","Isoprinosine","Phentolamine"], correct: 1 },
+      { q: "31) Which is a property of amphetamine?", options: ["Does not cross BBB","Releases stored acetylcholine","Releases stored norepinephrine","Releases 5-HTP"], correct: 2 },
+      { q: "32) A driver is too confident, talkative, and restless. Which drug is abused?", options: ["Diazepam","Theophylline","Amphetamine","LSD"], correct: 2 },
+      { q: "33) What is the pharmacological classification of ipratropium bromide?", options: ["Beta agonist","Alpha agonist","Cholinergic agonist","Antimuscarinic agent"], correct: 3 },
+      { q: "34) What is a consequence of stimulation of α1-adrenoceptors?", options: ["Flushing","Increased heart rate","Constricted bronchioles","Elevated blood pressure"], correct: 3 },
+      { q: "35) What is the mechanism of action of rivastigmine?", options: ["Cholinesterase inhibitor","Alpha receptor inhibitor","Serotonin reuptake inhibitor","ACE inhibitor"], correct: 0 },
+      { q: "36) Which drug reverses the action of atropine?", options: ["Physostigmine","Benztropine","Disulfiram","Propranolol"], correct: 0 },
+      { q: "37) Catecholamines are metabolized rapidly by COMT. Which statement is correct?", options: ["Rapid metabolism","Slow metabolism","No metabolism","Only liver metabolism"], correct: 0 },
+      { q: "38) Which agent counteracts post-anesthetic respiratory depression?", options: ["Morphine","Picrotoxin","Diazepam","Thiopental"], correct: 1 },
+      { q: "39) Which drug would decrease MAC for an anesthetic drug?", options: ["Diazepam","Buspirone","Ephedrine","Loratadine"], correct: 0 },
+      { q: "40) Which anesthetic drug has higher risk of causing anemia?", options: ["Propofol","Ketamine","Isoflurane","Nitrous oxide"], correct: 3 },
+      { q: "41) Which depolarizing neuromuscular blocker is less potent than tubocurarine?", options: ["Succinylcholine","Rocuronium","Pipecuronium","Doxacurium"], correct: 0 },
+      { q: "42) What is the antidote for heparin?", options: ["Protamine sulfate","Octreotide","N-acetylcysteine","Naloxone"], correct: 0 },
+      { q: "44) Which situation is controlled by parenteral calcium as an antidote?", options: ["Hypokalemia","Verapamil overdose","Heroin intoxication","Cocaine intoxication"], correct: 1 },
+      { q: "45) Organophosphate exposure with excessive secretions: best management?", options: ["Atropine IV","Diphenhydramine orally","Pralidoxime IM","Physostigmine IM"], correct: 0 },
+      { q: "46) What is the antidote for midazolam toxicity?", options: ["Atropine","Flumazenil","Amifostine","Acetylcysteine"], correct: 1 },
+      { q: "47) What is the precursor for 5-hydroxytryptamine (serotonin)?", options: ["Proline","Alanine","Glutamine","Tryptophan"], correct: 3 },
+      { q: "48) Which enzymes regulate supercoiling of DNA?", options: ["Helicases","Primases","Topoisomerases","Reverse transcriptase"], correct: 2 },
+      { q: "49) Where does the electron transport chain take place?", options: ["Cytoplasm","Golgi apparatus","Outer mitochondrial membrane","Inner mitochondrial membrane"], correct: 3 },
+      { q: "50) Deficiency of which vitamin causes scurvy?", options: ["Vitamin A","Vitamin B6","Vitamin C","Vitamin D"], correct: 2 },
+      { q: "51) Which vitamin is a coenzyme for cystathionine synthase/cystathionase?", options: ["B2","B3","B5","B6"], correct: 3 },
+      { q: "52) The pH difference between extracellular and intracellular fluid is?", options: ["Nil","0.2","0.4","0.8"], correct: 2 },
+      { q: "53) What is the main role of ATP?", options: ["Energy carrier","Oxygen carrier","Amino acid carrier","Water carrier"], correct: 0 },
+      { q: "54) Which of the following is a cytokine-related mediator?", options: ["Leukotriene","Adrenaline","Gonadotropin","Insulin"], correct: 0 },
+      { q: "55) Which process does insulin increase?", options: ["Glycogenolysis","Gluconeogenesis","Glucogenesis","Ketogenesis","Glycogenesis"], correct: 4 },
+      { q: "56) Synthesis of glycogen from glucose is called?", options: ["Glycogenesis","Glycolysis","Glycogenolysis","Gluconeogenesis"], correct: 0 },
+      { q: "57) How many ATP molecules are produced per glucose molecule (classic teaching)?", options: ["12","24","38","2"], correct: 2 },
+      { q: "58) Which amino acid is given for anorexia?", options: ["Alanine","Arginine","Valine","Glycine"], correct: 2 }
+    ];
+
+    // ====== State ======
+    let currentIdx = 0;
+    let score = 0;
+    let timeLeft = 75 * 60;
+    let studentName = "";
+    let timer = null;
+
+    const status = Array(questions.length).fill(null);
+    const userChoiceIndex = Array(questions.length).fill(null);
+    const letters = ["A","B","C","D","E","F"];
+
+    // ====== Helpers ======
+    function countUnanswered(){ return status.filter(s => s === null).length; }
+    function findFirstUnansweredIndex(){ return status.findIndex(s => s === null); }
+
+    function openConfirmModal(){
+      const overlay = document.getElementById("confirm-overlay");
+      const text = document.getElementById("confirm-text");
+      const unanswered = countUnanswered();
+      text.innerText = `بقيت لديك ${unanswered} أسئلة لم تجب عليها، هل تريد إنهاء الاختبار؟`;
+      overlay.style.display = "flex";
+    }
+    function closeConfirmModal(){ document.getElementById("confirm-overlay").style.display = "none"; }
+
+    document.getElementById("confirm-yes").onclick = () => { closeConfirmModal(); end(false); };
+    document.getElementById("confirm-no").onclick  = () => {
+      closeConfirmModal();
+      const idx = findFirstUnansweredIndex();
+      if (idx !== -1){ currentIdx = idx; showQ(currentIdx); }
+    };
+
+    document.getElementById("total-q-num").innerText = questions.length;
+
+    // ====== Start / Nav ======
+    document.getElementById('start-btn').onclick = () => {
+      studentName = document.getElementById('student-name').value;
+      if(!studentName.trim()) return alert("ادخل اسمك");
+
+      document.getElementById('start-screen').classList.add('hidden');
+      document.getElementById('quiz-screen').classList.remove('hidden');
+
+      buildNavStrip();
+      startTimer();
+      showQ(currentIdx);
+    };
+
+    document.getElementById("finish-btn").onclick = () => {
+      if (countUnanswered() > 0) openConfirmModal();
+      else end(false);
+    };
+
+    document.getElementById("prev-btn").onclick = () => { if (currentIdx > 0){ currentIdx--; showQ(currentIdx); } };
+    document.getElementById("next-btn").onclick = () => { if (currentIdx < questions.length - 1){ currentIdx++; showQ(currentIdx); } };
+
+    function setNavButtons(){
+      document.getElementById("prev-btn").disabled = (currentIdx === 0);
+      document.getElementById("next-btn").disabled = (currentIdx === questions.length - 1);
+    }
+
+    // ====== Timer ======
+    function formatTime(totalSeconds){
+      const m = Math.floor(totalSeconds/60);
+      const s = totalSeconds%60;
+      return `${m}:${s<10?'0':''}${s}`;
+    }
+    function startTimer(){
+      document.getElementById('time').innerText = formatTime(timeLeft);
+      timer = setInterval(() => {
+        timeLeft--;
+        document.getElementById('time').innerText = formatTime(timeLeft);
+        if(timeLeft <= 0) end(false);
+      }, 1000);
+    }
+
+    // ====== Nav strip ======
+    function buildNavStrip(){
+      const nav = document.getElementById("nav-strip");
+      nav.innerHTML = questions.map((q, i) => `<div class="q-chip unanswered" id="chip-${i}" onclick="goTo(${i})">${i+1}</div>`).join("");
+      updateNavStrip();
+    }
+    function updateNavStrip(){
+      for(let i=0;i<questions.length;i++){
+        const chip = document.getElementById(`chip-${i}`);
+        chip.classList.remove("current","unanswered","correct","wrong");
+        if (i === currentIdx) chip.classList.add("current");
+        if (status[i] === null) chip.classList.add("unanswered");
+        else if (status[i] === true) chip.classList.add("correct");
+        else chip.classList.add("wrong");
+      }
+      const currentChip = document.getElementById(`chip-${currentIdx}`);
+      if (currentChip) currentChip.scrollIntoView({behavior:"smooth", inline:"center", block:"nearest"});
+    }
+    window.goTo = (idx) => { currentIdx = idx; showQ(currentIdx); };
+
+    // ====== Render ======
+    function showQ(idx){
+      const q = questions[idx];
+      document.getElementById('current-q-num').innerText = idx + 1;
+      const alreadyAnswered = (status[idx] !== null);
+
+      const optionsHtml = q.options.map((o, i) => {
+        const letter = letters[i] || String(i+1);
+        return `
+          <button class="option-btn" onclick="check(this, ${idx}, ${i})">
+            <span class="option-text">${o}</span>
+            <span class="opt-badge">${letter}</span>
+          </button>
+        `;
+      }).join("");
+
+      document.getElementById('question-container').innerHTML = `
+        <div class="question-text">${q.q}</div>
+        <div class="options-grid" id="options-parent">${optionsHtml}</div>
+      `;
+
+      if (alreadyAnswered){
+        const parent = document.getElementById("options-parent");
+        const btns = parent.querySelectorAll(".option-btn");
+        btns.forEach(b => b.style.pointerEvents = "none");
+
+        const userIdx = userChoiceIndex[idx];
+        const correctIdx = q.correct;
+        if (userIdx !== null && btns[userIdx]) btns[userIdx].classList.add(status[idx] ? "correct" : "wrong");
+        if (btns[correctIdx]) btns[correctIdx].classList.add("correct");
+      }
+
+      updateNavStrip();
+      setNavButtons();
+    }
+
+    window.check = (btn, qIdx, optIdx) => {
+      if (status[qIdx] !== null) return;
+
+      const q = questions[qIdx];
+      const isCorrect = (optIdx === q.correct);
+
+      userChoiceIndex[qIdx] = optIdx;
+      status[qIdx] = isCorrect;
+
+      if (isCorrect){ btn.classList.add("correct"); score++; }
+      else {
+        btn.classList.add("wrong");
+        const buttons = document.querySelectorAll('#options-parent .option-btn');
+        if (buttons[q.correct]) buttons[q.correct].classList.add("correct");
+      }
+
+      document.getElementById('options-parent').style.pointerEvents = 'none';
+      updateNavStrip();
+
+      setTimeout(() => {
+        if (currentIdx < questions.length - 1){ currentIdx++; showQ(currentIdx); }
+        else { if (countUnanswered() > 0) openConfirmModal(); else end(false); }
+      }, 500);
+    };
+
+    function end(isEarly){
+      clearInterval(timer);
+      document.getElementById('quiz-screen').classList.add('hidden');
+      document.getElementById('result-screen').classList.remove('hidden');
+
+      document.getElementById('report-name').innerText = studentName;
+
+      const total = questions.length;
+      const answeredCount = status.filter(s => s !== null).length;
+      const correctCount = status.filter(s => s === true).length;
+      const percent = total === 0 ? 0 : Math.round((correctCount / total) * 100);
+
+      document.getElementById('score-display').innerText = `${correctCount} / ${total}`;
+      document.getElementById('percent-display').innerText =
+        isEarly ? `تم إنهاء الاختبار مبكرًا: أُجيب على ${answeredCount} سؤال — النسبة: ${percent}%`
+                : `النسبة: ${percent}%`;
+
+      const reportIdxs = [...Array(total).keys()];
+      document.getElementById('answers-report').innerHTML = reportIdxs.map((i) => {
+        const q = questions[i];
+        const userIdx = userChoiceIndex[i];
+        const correctIdx = q.correct;
+        const isCorrect = status[i] === true;
+
+        const userTxt = (userIdx === null) ? "لم يتم الإجابة" : `${letters[userIdx]}: ${q.options[userIdx]}`;
+        const corrTxt = `${letters[correctIdx]}: ${q.options[correctIdx]}`;
+
+        return `
+          <div class="report-item ${isCorrect ? 'correct-item' : 'wrong-item'}">
+            <span class="report-q">${q.q}</span>
+            <span class="report-meta">إجابتك: ${userTxt} | الصح: ${corrTxt}</span>
+          </div>
+        `;
+      }).join('');
+    }
+  </script>
+</body>
+  </html>
