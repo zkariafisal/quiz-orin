@@ -359,219 +359,156 @@
   const TOTAL_MINUTES = 66;
 
   // =========================
-  // الأسئلة (نفس قائمتك الحالية) + حذف سؤال 47 (حسب طلبك)
-  // ملاحظة: أنا لم أستطع تحديد "سؤال 47" من عندك بالضبط بدون نصه،
-  // لذلك هنا حذفته بشرط نص السؤال: "Which is the least dominant tautomerism form of histamine at physiological pH?"
-  // إذا كان قصدك سؤال آخر، فقط قلّي نص السؤال وأنا أحذفه لك فوراً.
+  // الأسئلة
+  // ✅ ضع صورك داخل images/ واكتب الاسم تماماً
   // =========================
-
   const rawQuestions = [
-    //1
     { q: "Medication for osteoporosis in menopausal women given monthly?", options: ["Zoledronic acid", "Ibandronate", "Raloxifene", "Alendronate"], correct: 1 },
-    //2
     { q: "Medication for osteoporosis in women given once per a year?", options: ["Zoledronic acid", "Ibandronate", "Raloxifene", "Alendronate"], correct: 0 },
-    //3
     { q: "Medication for osteoporosis in women given weekly?", options: ["Zoledronic acid", "Ibandronate", "Raloxifene", "Alendronate"], correct: 3 },
-    //4
     { q: "Gold standard test for osteoporosis?", options: ["DEXA (Dual-energy X-ray absorptiometry)", "MRI", "CT", "Ultrasound"], correct: 0 },
-    //5
     { q: "Patient with osteoporosis: which is needed for diagnosis?", options: ["X-ray", "MRI", "CT", "PET scan"], correct: 0 },
-    //6
     { q: "Which osteoporosis drug can cause esophageal ulcers?", options: ["Denosumab", "Teriparatide", "Alendronate", "Zoledronic acid"], correct: 2 },
-    //7
     { q: "Which medication for osteoporosis will significantly reduce the risk of hip fracture?", options: ["Phosphate", "Risedronate", "Raloxifene", "Calcitonin"], correct: 1 },
-    //8
     { q: "A 65-year patient suffered from osteomalacia with numbness and tingling. Vitamin D and an IV calcium supplement were prescribed. Which calcium salt was most likely prescribed?", options: ["Calcium citrate (21% calcium)", "Calcium lactate (13% calcium)", "Calcium gluconate (9% calcium)", "Calcium phosphate (39% calcium)"], correct: 2 },
-    //9
     { q: "A 25-year-old man with leukemia admitted to oncology center. Who is allowed to read the patient file without additional permission?", options: ["Patient's cousin who is working as an outpatient nurse", "Medical resident in pediatrics who wants to explore leukemia risk", "Clinical nutritionist assigned to calculate requirements for the patient", "Pharmacy resident planning a research on cell transplant"], correct: 2 },
-    //10
     { q: "Which anti-neoplastic medication is known to cause bone marrow suppression?", options: ["Bleomycin", "Vincristine", "Doxorubicin", "L-asparaginase"], correct: 2 },
-    //11
     { q: "Which of the following is an alkylating anticancer agent?", options: ["Cyclophosphamide", "Fluorouracil", "Doxorubicin", "Etoposide"], correct: 0 },
-    //12
     { q: "A patient refuses surgery and chemotherapy due to beauty concerns. What is the most appropriate suggestion?", options: ["Start chemotherapy with very low doses and less frequency", "Go with surgery immediately without discussion", "Discuss risks and benefits with the patient and take the decision", "Force chemotherapy and advise hair extensions"], correct: 2 },
-    //13
     { q: "Which anti-cancer alkaloid stabilizes microtubule polymer and protects it from disassembly?", options: ["Paclitaxel", "Colchicine", "Vinblastine", "Camptothecin"], correct: 0 },
-    //14
     { q: "Which recommendation reduces inadvertent intrathecal administration of vincristine?", options: ["Dispense the syringe without needle", "Dispense vincristine in a 60-mL syringe", "Dispense vincristine in a mini-bag instead of syringe", "Dispense the vial for bedside preparation"], correct: 2 },
-    //15
     { q: "What is the most common adverse reaction of doxorubicin?", options: ["Bone marrow depression", "Hepatic toxicity", "Cardiac toxicity", "Skin necrosis"], correct: 2 },
-    //16
     { q: "What is the therapeutic indication for nilotinib?", options: ["Ulcerative colitis", "Familial hyperlipidemia", "Relapsing-remitting multiple sclerosis", "Philadelphia chromosome positive chronic myelogenous leukemia"], correct: 3 },
-    //17
     { q: "A 40-year-old woman with breast cancer: topoisomerase is elevated. Which drug should be used?", options: ["Cyclophosphamide", "Melphalan", "Irinotecan", "Methotrexate"], correct: 2 },
-    //18
     { q: "Immune system plays an important role in cancer treatment by?", options: ["Macrophage", "Cytotoxic CD8", "Complex", "Neutrophils only"], correct: 1 },
-    //19
     { q: "Cysteine in chemotherapy agent benefit?", options: ["Increase target", "Increase effects", "Increase solubility", "More information needed"], correct: 1 },
-    //20
-//20
-{ 
-  q: "Acetaminophen binds to a cytosolic protein. Which type of bond is formed between the protonated amine of acetaminophen and the cytosolic acid of the aspartate residue of the protein?",
-  img:"images/Acetaminophen.jpg",
-  options: ["Ionic bond", "Covalent bond", "Hydrogen bond", "Van der Waals interaction"],
-  correct: 2
-},    //21
+
+    // ✅ صور من مجلد images/
+    {
+      q: "Acetaminophen binds to a cytosolic protein. Which type of bond is formed between the protonated amine of acetaminophen and the cytosolic acid of the aspartate residue of the protein?",
+      img: "images/Acetaminophen.jpg",
+      options: ["Ionic bond", "Covalent bond", "Hydrogen bond", "Van der Waals interaction"],
+      correct: 2
+    },
     { q: "Which of the following molecules contains double bond?", options: ["CH3", "CNH", "C2H2", "C2H4"], correct: 3 },
-    //22
-{
-  q: "Quinine is an important antimalarial drug and very sensitive to stereochemistry. If stereochemistry at the arrow changes from R to S, which pharmacological activity will the drug possess?",
-  img:"images/quinine-quinidine.jpg",
-  options: ["Anticancer", "Antimalarial", "Anticoagulant", "Antiarrhythmic"],
-  correct: 3
-},    //23
-{
-  q: "Acetaminophen binds to a cytosolic protein. Which type of bond is formed between the protonated amine of acetaminophen and the carboxylic acid of the aspartate residue of the protein?",
-  img:"images/Acetaminophen.jpg",
-  options: ["Ionic bond", "Covalent bond", "Hydrogen bond", "Van der Waals interaction"],
-  correct: 2
-},    //24
+    {
+      q: "Quinine is an important antimalarial drug and very sensitive to stereochemistry. If stereochemistry at the arrow changes from R to S, which pharmacological activity will the drug possess?",
+      img: "images/quinine-quinidine.jpg",
+      options: ["Anticancer", "Antimalarial", "Anticoagulant", "Antiarrhythmic"],
+      correct: 3
+    },
+    {
+      q: "Acetaminophen binds to a cytosolic protein. Which type of bond is formed between the protonated amine of acetaminophen and the carboxylic acid of the aspartate residue of the protein?",
+      img: "images/Acetaminophen.jpg",
+      options: ["Ionic bond", "Covalent bond", "Hydrogen bond", "Van der Waals interaction"],
+      correct: 2
+    },
     { q: "Which of the following can be used safely in a patient with sulfa allergy?", options: ["Gliclazide", "Furosemide", "Sulfamethoxazole", "Sodium thiosulfate"], correct: 3 },
-    //25
-    //25
-{
-  q: "The structure of a norepinephrine-serotonin reuptake inhibitor (NSRI) is shown. Which modification can transform it into a selective norepinephrine reuptake inhibitor analogue?",
-  img:"images/NSRI.jpg",
-  options: ["Quaternization of the side chain amino group", "Transform side chain amino group into a primary amine", "Replace N,N-dimethylamino group with hydroxyl group", "Demethylation of tertiary amino group to yield a secondary amino group"],
-  correct: 3
-},
-
-//26
-{
-  q: "Thalidomide exists in two conformations with different activities. What is the most appropriate term to call the two conformations?",
-  img:"images/Thalidomide.jpg",
-  options: ["Isomers", "Epimers", "Enantiomers", "Diastereomers"],
-  correct: 2
-},
-
-//27
-{
-  q: "Glibenclamide (glyburide) is an N-sulfonylurea. Which pharmacophore does it contain?",
-  img:"images/Glibenclamide.jpg",
-  options: ["Benzenesulfate urea", "Benzenesulfinyl urea", "Benzenesulfhydryl urea", "Benzenesulfonyl urea"],
-  correct: 3
-},
-
-//28
-{
-  q: "Aspirin is a well-known antiplatelet agent. What is the role of the acetyl group in its antiplatelet activity?",
-  img:"images/Aspirin.jpg",
-  options: ["Good leaving group to form active salicylic acid", "Hydrogen bonding with tyrosine on COX", "Covalent binding with serine on COX binding site", "Hydrophobic binding with tryptophan on COX binding site"],
-  correct: 2
-},
-
-//29
-{
-  q: "Examine the drug in the figure (codeine). What is the effect of replacing the methoxyl group (boxed) with a hydroxyl group?",
-  img:"images/Codeine.jpg",
-  options: ["Decrease in analgesic activity", "Decrease in addiction activity", "Reduction in the antitussive activity", "Lower affinity to morphine receptors"],
-  correct: 2
-},
-
-//30
-{
-  q: "The structure of erythromycin is shown. Why is erythromycin sensitive to acidic pH?",
-  img:"images/erythromycin.jpg",
-  options: ["Presence of lactone group in the ring", "Presence of two basic sugars at positions 3 and 5", "Presence of many methyl groups at alternate positions", "Ketal formation between hydroxyls (6 and 12) and ketone at position 9"],
-  correct: 3
-},
-   //31
+    {
+      q: "The structure of a norepinephrine-serotonin reuptake inhibitor (NSRI) is shown. Which modification can transform it into a selective norepinephrine reuptake inhibitor analogue?",
+      img: "images/NSRI.jpg",
+      options: ["Quaternization of the side chain amino group", "Transform side chain amino group into a primary amine", "Replace N,N-dimethylamino group with hydroxyl group", "Demethylation of tertiary amino group to yield a secondary amino group"],
+      correct: 3
+    },
+    {
+      q: "Thalidomide exists in two conformations with different activities. What is the most appropriate term to call the two conformations?",
+      img: "images/Thalidomide.jpg",
+      options: ["Isomers", "Epimers", "Enantiomers", "Diastereomers"],
+      correct: 2
+    },
+    {
+      q: "Glibenclamide (glyburide) is an N-sulfonylurea. Which pharmacophore does it contain?",
+      img: "images/Glibenclamide.jpg",
+      options: ["Benzenesulfate urea", "Benzenesulfinyl urea", "Benzenesulfhydryl urea", "Benzenesulfonyl urea"],
+      correct: 3
+    },
+    {
+      q: "Aspirin is a well-known antiplatelet agent. What is the role of the acetyl group in its antiplatelet activity?",
+      img: "images/Aspirin.jpg",
+      options: ["Good leaving group to form active salicylic acid", "Hydrogen bonding with tyrosine on COX", "Covalent binding with serine on COX binding site", "Hydrophobic binding with tryptophan on COX binding site"],
+      correct: 2
+    },
+    {
+      q: "Examine the drug in the figure (codeine). What is the effect of replacing the methoxyl group (boxed) with a hydroxyl group?",
+      img: "images/Codeine.jpg",
+      options: ["Decrease in analgesic activity", "Decrease in addiction activity", "Reduction in the antitussive activity", "Lower affinity to morphine receptors"],
+      correct: 2
+    },
+    {
+      q: "The structure of erythromycin is shown. Why is erythromycin sensitive to acidic pH?",
+      img: "images/erythromycin.jpg",
+      options: ["Presence of lactone group in the ring", "Presence of two basic sugars at positions 3 and 5", "Presence of many methyl groups at alternate positions", "Ketal formation between hydroxyls (6 and 12) and ketone at position 9"],
+      correct: 3
+    },
     { q: "Which polymorphic enzyme converts codeine to morphine?", options: ["CYP2D6", "CYP2C9", "CCR5 coreceptor", "N-Acetyltransferase"], correct: 0 },
-//32
-{
-  q: "Structures of four antidepressants are shown. Which structure undergoes a photo-oxidation reaction upon exposure to light?",
-  img:"images/Antidepressant.jpg",
-  options: ["1", "2", "3", "4"],
-  correct: 0
-},
-
-//33
-{
-  q: "Four NSAIDs are shown. Which NSAID has minimal possible gastric side effects?",
-  img:"images/NSAIDs.jpg",
-  options: ["Ibuprofen", "Celecoxib", "Indomethacin", "Diclofenac"],
-  correct: 1
-},
- //34
+    {
+      q: "Structures of four antidepressants are shown. Which structure undergoes a photo-oxidation reaction upon exposure to light?",
+      img: "images/Antidepressant.jpg",
+      options: ["1", "2", "3", "4"],
+      correct: 0
+    },
+    {
+      q: "Four NSAIDs are shown. Which NSAID has minimal possible gastric side effects?",
+      img: "images/NSAIDs.jpg",
+      options: ["Ibuprofen", "Celecoxib", "Indomethacin", "Diclofenac"],
+      correct: 1
+    },
     { q: "What is the most common cause of drug instability?", options: ["Oxidation", "Racemization", "Epimerization", "Decarboxylation"], correct: 0 },
-//35
-{
-  q: "structure of Ciprofloxacin Which of the following is the benefit of the piperazine group at position?",
-  img:"images/Ciprofloxacin.jpg",
-  options: ["Increases drug resistance to β-lactamase", "Improves the oral bioavailability of the drug", "Increases lipophilicity and penetration of the bacterial cell wall", "Improves the spectrum of antibacterial activity (especially Gram-negative)"],
-  correct: 3
-},
- //36
+    {
+      q: "structure of Ciprofloxacin Which of the following is the benefit of the piperazine group at position?",
+      img: "images/Ciprofloxacin.jpg",
+      options: ["Increases drug resistance to β-lactamase", "Improves the oral bioavailability of the drug", "Increases lipophilicity and penetration of the bacterial cell wall", "Improves the spectrum of antibacterial activity (especially Gram-negative)"],
+      correct: 3
+    },
     { q: "Which one of the following is the effect of alkaline buffers in commercial aspirin formulations?", options: ["They have no effect on the rate of absorption", "They increase absorption by alkalinizing stomach pH", "They reduce absorption by converting aspirin to less readily absorbed ionic form", "They increase absorption by increasing pH immediately around disintegrating particles and accelerating dissolution"], correct: 3 },
-   // 37
-{
-  q: "Examine the chemical structure of diclofenac. Which structure best represents a major active metabolite of diclofenac?",
-  img:"images/Diclofenac.jpg",
-  options: ["1", "2", "3", "4"],
-  correct: 3
-},
+    {
+      q: "Examine the chemical structure of diclofenac. Which structure best represents a major active metabolite of diclofenac?",
+      img: "images/Diclofenac.jpg",
+      options: ["1", "2", "3", "4"],
+      correct: 3
+    },
+    {
+      q: "The presented structure belongs to the proton pump inhibitor tenatoprazole. Which metabolic reaction can occur at the pointed arrow?",
+      img: "images/Tenatoprazole.png",
+      options: ["Sulfation", "Oxidation", "Demethylation", "Glucuronidation"],
+      correct: 1
+    },
+    {
+      q: "Which of the following medications contains triazole moiety?",
+      img: "images/Triazol-moiety.jpg",
+      options: ["Fluconazole", "Erythromycin", "Aspirin", "Metformin"],
+      correct: 0
+    },
+    {
+      q: "Histamine (pKa = 9.4) is released during allergic reactions. Which is the least dominant tautomer of histamine at physiological pH?",
+      img: "images/Histamine.jpg",
+      options: ["a", "b", "c", "d"],
+      correct: 1
+    },
+    {
+      q: "D-Galactose and D-Mannose differ in configuration. Which type of stereo-isomerization do these sugars represent?",
+      img: "images/Epimers-of-D-Glucose.jpg",
+      options: ["Isomers", "Epimers", "Anomers", "Diastereomers"],
+      correct: 3
+    },
+    {
+      q: "Ropivacaine and 4 other local anesthetics are shown. Which is the bioisoster for ropivacaine?",
+      img: "images/Ropivancaine.png",
+      options: ["Etidocaine", "Bupivacaine", "Mepivacaine", "Levobupivacaine"],
+      correct: 3
+    },
 
-//38
-{
-  q: "The presented structure belongs to the proton pump inhibitor tenatoprazole. Which metabolic reaction can occur at the pointed arrow?",
-  img:"images/Tenatoprazole.png",
-  options: ["Sulfation", "Oxidation", "Demethylation", "Glucuronidation"],
-  correct: 1
-},
-
-//39
-{
-  q: "Which of the following medications contains triazole moiety?",
-  img:"images/Triazol-moiety.jpg",
-  options: ["Fluconazole", "Erythromycin", "Aspirin", "Metformin"],
-  correct: 0
-},
-
-//40
-{
-  q: "Histamine (pKa = 9.4) is released during allergic reactions. Which is the least dominant tautomer of histamine at physiological pH?",
-  img:"images/Histamine.jpg",
-  options: ["a", "b", "c", "d"],
-  correct: 1
-},
-
-//41
-{
-  q: "D-Galactose and D-Mannose differ in configuration. Which type of stereo-isomerization do these sugars represent?",
-  img:"images/Epimers-of-D-Glucose.jpg",
-  options: ["Isomers", "Epimers", "Anomers", "Diastereomers"],
-  correct: 3
-},
-
-//42
-{
-  q: "Ropivacaine and 4 other local anesthetics are shown. Which is the bioisoster for ropivacaine?",
-  img:"images/Ropivancaine.png",
-  options: ["Etidocaine", "Bupivacaine", "Mepivacaine", "Levobupivacaine"],
-  correct: 3
-},
-  //43
     { q: "Amphotericin undergoes which reaction?", options: ["Hydrolysis", "Alkylation", "Reduction", "Oxidation"], correct: 0 },
-    //44
     { q: "Epimer of glucose?", options: ["Ribose", "Galactose", "Deoxyribose", "Fructose"], correct: 1 },
-    //45
     { q: "Two chemical configurations for the same drug, one is R and the other is S. What is it called?", options: ["Enantiomers", "Epimers", "Anomers", "Polymorphs"], correct: 0 },
-    //46
     { q: "Morphine to heroin transformation is mainly?", options: ["Carboxylation", "Esterification", "Hydroxylation", "Oxidation"], correct: 1 },
-    //47 (محذوف حسب طلبك)
-    //48
+
     { q: "Type of bond between amino acids?", options: ["Amide (peptide) bond", "Disulfide bond", "Ionic bond", "Van der Waals bond"], correct: 0 },
-    //49
     { q: "Aspirin metabolism?", options: ["Methylation", "Hydroxylation", "Conjugation", "Hydrolysis"], correct: 3 },
-    //50
     { q: "Bond between carboxyl and amine?", options: ["Hydrogen bond", "Ionic bond", "Peptide bond", "Covalent bond"], correct: 2 },
-    //51
     { q: "Benzimidazole and pyridine connected together with?", options: ["Disulphide bond", "Peptide bond", "Ester bond", "methylene linked"], correct: 3 },
-    //52
     { q: "In zidovudine (AZT) structure, which part removal makes the antiviral drug not effective?", options: ["N3", "CH3", "C=O", "OH"], correct: 0 },
-    //53
     { q: "Which element is NOT involved in heterocyclic compounds?", options: ["N", "H", "Se", "Fe"], correct: 3 },
-    //54
     { q: "Ephedrine vs phenylephrine: addition of hydroxyl group does what to activity?", options: ["Increase alpha 1", "Decrease alpha 1", "Increase alpha 2", "Decrease alpha 2"], correct: 0 }
   ];
 
@@ -677,7 +614,7 @@
     refreshNumbers(true);
   }
 
-  // ✅ النسخة الجديدة: الشريط يتحرك مع السؤال بشكل مضمون على الجوال
+  // ✅ الشريط يتحرك مع السؤال (مضمون على الجوال)
   function refreshNumbers(autoScroll){
     const btns = document.querySelectorAll('.qnum');
 
@@ -692,75 +629,85 @@
     if(autoScroll){
       const active = btns[current];
       if(active){
-        active.scrollIntoView({
-          behavior: 'smooth',
-          inline: 'center',
-          block: 'nearest'
-        });
+        active.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
         setTimeout(() => {
-          active.scrollIntoView({
-            behavior: 'smooth',
-            inline: 'center',
-            block: 'nearest'
-          });
+          active.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
         }, 50);
       }
     }
   }
 
+  // ✅ عرض صورة من images/ مع زر "عرض الصورة" ويعمل على الجوال
   function renderQuestion(){
-  const q = questions[current];
-  curEl.textContent = current + 1;
+    const q = questions[current];
+    curEl.textContent = current + 1;
 
-  const imgHtml = q.img ? `
-    <div style="display:flex;justify-content:center;margin:8px 0;">
-      <button onclick="showImg('img${current}', this)" 
-        style="background:#fff;border:2px solid #dfe6ef;border-radius:14px;padding:6px 10px;font-weight:900;cursor:pointer">
-        🖼️ عرض الصورة
-      </button>
-    </div>
-    <img id="img${current}" class="qimg" data-src="${q.img}" alt="question image" style="display:none">
-  ` : "";
+    const text = ensureQuestionMark(q.q);
 
-  const text = ensureQuestionMark(q.q);
+    questionArea.innerHTML = `
+      <div class="qtext">${text}</div>
 
-  questionArea.innerHTML = `
-    <div class="qtext">${text}</div>
-    ${imgHtml}
-    <div class="options" id="opts"></div>
-  `;
+      ${q.img ? `
+        <div style="display:flex;justify-content:center;margin:8px 0;">
+          <button id="show-img-btn"
+            style="background:#fff;border:2px solid #dfe6ef;border-radius:14px;padding:6px 10px;font-weight:900;cursor:pointer">
+            🖼️ عرض الصورة
+          </button>
+        </div>
+        <img id="qimg" class="qimg" alt="question image" style="display:none">
+        <div id="img-error" class="small" style="display:none;color:#b91c1c;text-align:center;"></div>
+      ` : ""}
 
-  const opts = document.getElementById('opts');
-  const letters = ["A","B","C","D"];
-
-  q.options.forEach((t, idx) => {
-    const btn = document.createElement('div');
-    btn.className = "opt";
-    btn.innerHTML = `
-      <div class="badge">${letters[idx]}</div>
-      <div style="flex:1">${t}</div>
+      <div class="options" id="opts"></div>
     `;
-    btn.onclick = () => choose(idx);
-    opts.appendChild(btn);
-  });
 
-  if(answers[current]){
-    paintAnswered();
-    lockOptions(true);
-  }else{
-    lockOptions(false);
-  }
+    // ربط زر الصورة بطريقة مضمونة
+    if(q.img){
+      const btn = document.getElementById("show-img-btn");
+      const img = document.getElementById("qimg");
+      const err = document.getElementById("img-error");
 
-  refreshNumbers(true);
-}
-function showImg(id, btn){
-  const img = document.getElementById(id);
-  if(!img.src){
-    img.src = img.dataset.src;
+      btn.addEventListener("click", () => {
+        err.style.display = "none";
+        img.style.display = "none";
+
+        img.onload = () => {
+          img.style.display = "block";
+          btn.style.display = "none";
+        };
+
+        img.onerror = () => {
+          err.textContent = "الصورة غير موجودة أو اسمها مختلف. تأكد من الاسم داخل مجلد images.";
+          err.style.display = "block";
+        };
+
+        img.src = q.img; // مثال: images/Acetaminophen.jpg
+      });
+    }
+
+    const opts = document.getElementById('opts');
+    const letters = ["A","B","C","D"];
+
+    q.options.forEach((t, idx) => {
+      const btn = document.createElement('div');
+      btn.className = "opt";
+      btn.innerHTML = `
+        <div class="badge">${letters[idx]}</div>
+        <div style="flex:1">${t}</div>
+      `;
+      btn.onclick = () => choose(idx);
+      opts.appendChild(btn);
+    });
+
+    if(answers[current]){
+      paintAnswered();
+      lockOptions(true);
+    }else{
+      lockOptions(false);
+    }
+
+    refreshNumbers(true);
   }
-  img.style.display = "block";
-  btn.style.display = "none";
-}
 
   function lockOptions(lock){
     const opts = document.querySelectorAll('.opt');
@@ -898,9 +845,7 @@ function showImg(id, btn){
   };
 
   restartBtn.onclick = () => startQuiz();
-
   finishBtn.onclick = () => tryFinish();
-
   prevBtn.onclick = () => { if(current > 0) goTo(current - 1); };
   nextBtn.onclick = () => { if(current < total - 1) goTo(current + 1); else tryFinish(); };
 
@@ -912,4 +857,4 @@ function showImg(id, btn){
   };
 </script>
 </body>
-          </html>
+</html>
