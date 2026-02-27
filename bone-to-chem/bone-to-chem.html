@@ -755,9 +755,12 @@
 }
 function showImg(id, btn){
   const img = document.getElementById(id);
-  if(!img.src){
-    img.src = img.dataset.src;
+
+  // إذا ما تم تحميلها سابقاً
+  if (!img.getAttribute("src")) {
+    img.setAttribute("src", img.dataset.src);
   }
+
   img.style.display = "block";
   btn.style.display = "none";
 }
